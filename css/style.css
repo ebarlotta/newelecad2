@@ -1,0 +1,146 @@
+.notice {
+    padding: 15px;
+    background-color: #fafafa;
+    border-left: 6px solid #7f7f84;
+    margin-bottom: 10px;
+    width: 200px;
+    -webkit-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+       -moz-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+            box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+}
+.notice-sm {
+    padding: 10px;
+    font-size: 80%;
+}
+.notice-lg {
+    padding: 35px;
+    font-size: large;
+}
+.notice-success {
+    border-color: #80D651;
+}
+.notice-success>strong {
+    color: #80D651;
+}
+.notice-info {
+    border-color: #45ABCD;
+}
+.notice-info>strong {
+    color: #45ABCD;
+}
+.notice-warning {
+    border-color: #FEAF20;
+}
+.notice-warning>strong {
+    color: #FEAF20;
+}
+.notice-danger {
+    border-color: #d73814;
+}
+.notice-danger>strong {
+    color: #d73814;
+}
+.card {
+    width: 14rem;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 3px 3px 0 0 grey;
+}
+.card-list {
+    width: 95%;
+    padding: 20px;
+    margin: 10px;
+    background-color: #d4f3ee;
+    height: 100px;
+    border-radius: 10px;
+}
+.card-title {
+    text-shadow: gray;
+    font-weight: bold;
+}
+.card-img-top {
+  width: 100px;
+}
+.txtbox {
+    margin-bottom: 10px;
+    border-radius: 3px;
+    width: 400px;
+}
+.card-text {
+    color: #d4f3ee;
+}
+/* .alert-sucess {
+    margin: 20px; !important
+}
+.alert-danger {    
+    margin: 20px; !important
+}*/
+
+.Back {     /* Boton volver */
+    margin-top: 15px;
+}
+
+.Add {     /* Boton Agregar */
+    margin-bottom: 15px;
+}
+.Card-Add {
+    width: 445px;
+    margin-left: 40px;
+    background-color:#152850;
+    /*background-color: darkseagreen;*/
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    max-width: 500px;
+    word-wrap: break-word;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+
+.Card-Edit {
+    width: 445px;
+    margin-left: 40px;
+    background-color:#27496e;
+    /*background-color: rgb(214, 212, 95);*/
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    max-width: 500px;
+    word-wrap: break-word;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+.title-card {
+    color: #38c172;
+}
+.menu {
+    text-decoration:none;
+    width:100%;
+    justify-content:center;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 3px 3px 0 0 grey;
+    
+}
+.menu:hover, .menu.hover {
+    background-color : #d2cc9e;
+    text-decoration:none;
+    background: -moz-linear-gradient(
+       center top,
+       rgba(255, 255, 255, .2) 0%,
+       rgba(255, 255, 255, .1) 100%
+    )
+}
+
+.image-blurred-edge {
+    background-image: url('assets/profiles/kate-trysh-Dnkr_lmdKi8-unsplash.jpg');
+    width: 200px;
+    height: 200px;
+    /* you need to match the shadow color to your background or image border for the desired effect*/
+    box-shadow: 0 0 8px 8px white inset;
+}
