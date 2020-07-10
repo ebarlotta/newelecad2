@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+/*
 Route::get('/home', 'PrincipalController@index')->name('principal');
 Route::get('/home/{id?}', 'PrincipalController@index')->name('otra');
 
@@ -25,28 +25,28 @@ route::post('clients/store', 'ClientController@store')->name('clients.store');
 route::get('clients/{id}/edit',  'ClientController@edit')->name('clients.edit');
 route::get('clients/{id}/destroy', 'ClientController@destroy')->name('clients.destroy');
 route::post('clients/update/{id}',  'ClientController@update')->name('clients.update');
-
+*/
 
 // PRODUCTOS
 
 //route::get('products/show',  'ProductsController@show')->name('products.show');
-route::get('products/show_all',  'ProductsController@show_all')->name('products.show_all');
-route::get('products/{id}/edit',  'ProductsController@edit')->name('products.edit');
+route::get('products',  'ProductsController@show')->name('products.show');
+/*route::get('products/{id}/edit',  'ProductsController@edit')->name('products.edit');
 route::get('products/{id}/destroy', 'ProductsController@destroy')->name('products.destroy');
 route::get('products/create', 'ProductsController@create')->name('products.create');
 route::post('products/store', 'ProductsController@store')->name('products.store');
 route::post('products/update/{id}',  'ProductsController@update')->name('products.update');
-
+*/
 
 // FORMAS DE PAGO
 //route::get('formas', 'FormsController@addFormas')->name('formas');
-route::get('forms/show',  'FormsController@show_all')->name('forms.show_all');
+/*route::get('forms/show',  'FormsController@show_all')->name('forms.show_all');
 route::get('forms/{id}/edit',  'FormsController@edit')->name('forms.edit');
 route::get('forms/{id}/destroy', 'FormsController@destroy')->name('forms.destroy');
 route::get('forms/create', 'FormsController@create')->name('forms.create');
 route::post('forms/store', 'FormsController@store')->name('forms.store');
 route::post('forms/update/{id}',  'FormsController@update')->name('forms.update');
-
+*/
 
 // LISTAS DE PRECIO
 route::post('store',   'ListController@store')->name('lists.store');
