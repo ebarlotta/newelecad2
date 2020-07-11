@@ -41,7 +41,11 @@ switch ($Opcion) {
         $resultado = $GLOBALS['pdo']->prepare($sql); $resultado->execute();
         $datos=$resultado->fetchAll();
         break;
-        //echo $sql;
+    case "GetProductId" :
+        $sql="SELECT * FROM products WHERE id=" . $Parametros;
+        $resultado = $GLOBALS['pdo']->prepare($sql); $resultado->execute();
+        $datos=$resultado->fetchAll();
+        break;
     }
 
     $datos=json_encode($datos);
