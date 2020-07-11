@@ -64,7 +64,7 @@ misDatos.controller('productController', function ($scope, $http) {
     }
 
     $scope.DeleteProduct = function (a) {
-        $http.get('DeleteProduct.php?Id=' + a)
+        $http.get('../Delete.php?Id=' + a + '&module=products')
             .then(function (datos) {
                 $scope.init();
             });
