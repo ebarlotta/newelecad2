@@ -38,6 +38,7 @@ switch ($Opcion) {
         $resultado->execute();
         $datos = $resultado->fetchAll();
         break;
+        
         //FORMS
     case "Forms":
         $sql = "SELECT * FROM forms";
