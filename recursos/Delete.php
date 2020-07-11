@@ -14,6 +14,9 @@ switch ($Module) {
     case "forms":
         $IdForm = $Id;
         $sql = "DELETE FROM forms WHERE Id=$IdForm";
+    case "clients":
+        $IdClient = $Id;
+        $sql = "DELETE FROM clients WHERE Id=$IdClient";
 }
 
 $datos = array();

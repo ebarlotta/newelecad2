@@ -38,7 +38,7 @@ switch ($Opcion) {
         $resultado->execute();
         $datos = $resultado->fetchAll();
         break;
-        
+
         //FORMS
     case "Forms":
         $sql = "SELECT * FROM forms";
@@ -48,6 +48,19 @@ switch ($Opcion) {
         break;
     case "GetFormId":
         $sql = "SELECT * FROM forms WHERE id=" . $Parametros;
+        $resultado = $GLOBALS['pdo']->prepare($sql);
+        $resultado->execute();
+        $datos = $resultado->fetchAll();
+        break;
+        //CLIENTS
+    case "Clients":
+        $sql = "SELECT clients.id, clients.client_name, clients.client_address, clients.client_telephone, clients.client_email, clients.client_photo, lists.list_name FROM clients, lists WHERE clients.client_id_list=lists.id";
+        $resultado = $GLOBALS['pdo']->prepare($sql);
+        $resultado->execute();
+        $datos = $resultado->fetchAll();
+        break;
+    case "GetClientId":
+        $sql = "SELECT * FROM clients WHERE id=" . $Parametros;
         $resultado = $GLOBALS['pdo']->prepare($sql);
         $resultado->execute();
         $datos = $resultado->fetchAll();

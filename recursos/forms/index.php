@@ -31,7 +31,7 @@
                             <tr ng-repeat="form in Forms">
                                 <td> {{ form.forma_description}}</td>
                                 <td> {{ form.forma_increment }} </td>
-                                <td>                                
+                                <td>
                                     <i class="fa fa-refresh btn btn-success" data-toggle="modal" data-target="#myModalModifyList" ng-click="ModalModificarOperacion('Modificar'); CargarDatosForma(form.id);"> Modificar</i>
                                     <i class="fa fa-remove btn btn-danger" data-toggle="modal" data-target="#myModalDeleteList" ng-click="CargarDatosForma(form.id);"> Eliminar</i>
                                 </td>
@@ -73,23 +73,23 @@
                     </div>
                     <div class="modal-footer">
                         <button ng-show="ModalModificar=='Agregar'" type="button" class="btn btn-success" data-dismiss="modal" ng-click="InsertForm(1);" style="font-size: 0.8em;">Agregar</button>
-                        <button ng-show="ModalModificar=='Modificar'" type="button" class="btn btn-warning" data-dismiss="modal" ng-click="InsertForm(0);" style="font-size: 0.8em;">Modificar</button>    
+                        <button ng-show="ModalModificar=='Modificar'" type="button" class="btn btn-warning" data-dismiss="modal" ng-click="InsertForm(0);" style="font-size: 0.8em;">Modificar</button>
 
                         <button type="button" class="btn btn-info" data-dismiss="modal" style="font-size: 0.8em;">Cerrar</button>
                     </div>
                 </div>
             </div>
         </div> <!-- //Add form -->
-        
+
         <!--  DELETE LIST 
               ----------------- -->
-              <div class="modal fade" id="myModalDeleteList" role="dialog">
+        <div class="modal fade" id="myModalDeleteList" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content" style="width: 100%;">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title" >Eliminar Lista</h3>
+                        <h3 class="modal-title">Eliminar Lista</h3>
                     </div>
                     <div class="modal-body">
                         <h4>{{ModalUbicDesc}}</h4>
