@@ -47,7 +47,9 @@
                 <a href="../../" class="btn btn-info Back">Volver</a>
             </div>
         </div>
-
+        <a href="#" class="float">
+<i class="fa fa-plus my-float"></i>
+</a>
         <!--  AGREGAR / MODIFICAR PRODUCT 
               ----------------- -->
         <div class="modal fade" id="myModalModifyProduct" role="dialog">

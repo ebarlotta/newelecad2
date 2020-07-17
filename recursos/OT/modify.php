@@ -1,5 +1,11 @@
 <html ng-app="datosApp">
+<?php
+session_start();
 
+$id = $_GET["id"];
+$sql = "SELECT * FROM ots, clients WHERE ots.OT_Id_Client=clients.id and ots_state=$state and ots.id=$id ORDER BY OT_date";
+echo $sql;
+?>
 <head>
     <title></title>
     <script type="text/javascript" src="../../bootstrap/angular.min.js"></script>
@@ -113,7 +119,17 @@
                                 </tr>
                                 </tr>
                             </table>
-
+                            <div class="row" style="margin-left: 10px;">
+            <div style="margin-left:10px">
+                Estado Actual 
+                <input class="form-control txtbox" type="text" style="width:170px" value="{{ $data[0]->state_description }}" disabled>
+            </div>        
+            <div>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-top: 24px;margin-left: 10px;">
+                Cambiar de Estado
+                </button>
+            </div>
+        </div>
                         </form>
                         <a href="../../" class="btn btn-info Back">Volver</a>
                     </div>

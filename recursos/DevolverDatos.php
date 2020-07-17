@@ -65,8 +65,29 @@ switch ($Opcion) {
         $resultado->execute();
         $datos = $resultado->fetchAll();
         break;
+        //WORKS ORDER
+    case "OTs":
+        $sql = "SELECT * FROM ots";
+        $resultado = $GLOBALS['pdo']->prepare($sql);
+        $resultado->execute();
+        $datos = $resultado->fetchAll();
+        break;
+    case "CargarOT":
+        $sql = "SELECT * FROM ots, clients WHERE ots.id=$Parametros and ots.OT_Id_Client=clients.id";
+        $resultado = $GLOBALS['pdo']->prepare($sql);
+        $resultado->execute();
+        $datos = $resultado->fetchAll();
+        break;
+    case "DetailsOT":
+        $sql = "SELECT * FROM rel_ot_clients, products WHERE rel_ot_clients.Rel_Id_product=products.id AND rel_ot_clients.Rel_Id_OT=$Parametros"; 
+        //"SELECT * FROM ots, clients WHERE ots.id=$Parametros and ots.OT_Id_Client=clients.id";
+        $resultado = $GLOBALS['pdo']->prepare($sql);
+        $resultado->execute();
+        $datos = $resultado->fetchAll();
+        break;
 }
 
 $datos = json_encode($datos);
 //print_r($row);
+//echo $sql;
 echo $datos;
