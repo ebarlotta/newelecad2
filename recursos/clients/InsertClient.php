@@ -20,7 +20,7 @@ $datos = array();
 
 include_once("../stringconexion.inc");
 $resultado = $GLOBALS['pdo']->prepare($sql);
-//$resultado->execute();                                ////  COMENTADO PARA QUE NO TENGA EFECTO
+$resultado->execute();                                ////  COMENTADO PARA QUE NO TENGA EFECTO
 $datos = $resultado->fetchAll();
 if($operation) { $datos['Mensaje'] = "Datos Agregados!"; } else { $datos['Mensaje'] = "Datos Modificados!"; }
 $datos['Mensaje2'] = $sql;

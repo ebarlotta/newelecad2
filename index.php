@@ -12,6 +12,7 @@
 	<meta name=amp;quot;viewportamp;quot; content=amp;quot;width=device-width, initial-scale=1amp;quot;>
 	<meta name="viewport" content="width=device-width, initial - scale=1.0">
 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 
@@ -67,7 +68,7 @@
 				</div>
 				<!--</a>
 				<a href="recursos/home/8" class="menu align-self-center text-center">-->
-				<div class="notice notice-warning menu" ng-click="getOTsByState('8');">
+				<div class="notice notice-warning menu align-self-center text-center" ng-click="getOTsByState('8');">
 					<strong>8</strong> Trabajos Retirados
 				</div>
 				<!--</a>
@@ -76,7 +77,7 @@
 					<strong>9</strong> Trabajos a enviar
 				</div>
 				<!--</a>-->
-				<a href="#" class="float" data-toggle="modal" data-target="#modalOT">
+				<a href="#" class="float" ng-click="getClients();" data-toggle="modal" data-target="#modalOT">
 					<i class="fa fa-plus my-float"></i>
 				</a>
 			</div>
@@ -107,34 +108,34 @@
 			<div class="modal-dialog">
 				<!-- Modal content-->
 				<div class="modal-content" style="width: 100%;">
-					<div class="modal-header">
+					<div class="modal-header" style="display: flex;align-items: center;">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h3 class="modal-title">Agregar Orden de Trabajo</h3>
+						<h4 class="modal-title">Agregar Orden de Trabajo</h4>
 					</div>
 					<div class="modal-body">
 
 						<label for="Fecha">Fecha</label>
-						<input type="date" class="form-control col-5" id="OT_date">
+						<input type="date" class="form-control col-5" ng-model="OT_date" id="OT_date">
 
-						<div class="row">
-							<label for="Cliente">Cliente</label>
-							<select ng-model="OT_client" ng-value="OT_client" class="form-control col-5">
+
+						<label for="Cliente" style="padding-top: 10px;">Cliente</label>
+						<div class="row" style="display: flex;align-items: center;padding-left: 15px;padding-right: 15px;">
+							<select ng-model="OT_client" ng-value="OT_client" class="form-control col-8" style="height:34px;">
 								<option selected value=""></option>
 								<option ng-repeat="client in Clients" value="{{ client.id }}">{{ client.client_name }}</option>
 							</select>
-							<a href="recursos/clients" class="col-5">
-								<button type="button" class="btn btn-default btn-lg" style="background-color:yellow;margin-top: 19px;">
-									<spam class="fa fa-arrow-right" style="font-size:20px;color:lightblue;text-shadow:2px 2px 4px #000000;"></spam>
-									Agregar Cliente
-								</button>
-							</a>
+							<!--<a href="recursos/clients" style="height:36px;">-->
+							<button class="col-4" type="button" style="background-color:yellow; border-radius:5px;">
+								<spam class="fa fa-arrow-right" style="font-size:20px;color:lightblue;text-shadow:2px 2px 4px #000000;"></spam>
+								Agregar Cliente
+							</button>
+							<!--</a>-->
 						</div>
-						<br>
-						<label for="DetalledeTrabajo">Detalle de Trabajo</label>
+						<label for="DetalledeTrabajo" style="padding-top: 10px;">Detalle de Trabajo</label>
 						<textarea ng-model="OT_detail" ng-value="OT_detail" style="resize: both;height: 60px;width: 97%;">Detalles de OT</textarea>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-success" data-dismiss="modal" ng-click="InsertClient(1);" style="font-size: 0.8em;">Agregar</button>
+						<button type="button" class="btn btn-success" data-dismiss="modal" ng-click="InsertOT(1);" style="font-size: 0.8em;">Agregar</button>
 						<button type="button" class="btn btn-info" data-dismiss="modal" style="font-size: 0.8em;">Cerrar</button>
 					</div>
 				</div>
@@ -152,14 +153,15 @@
 						<h3 class="modal-title">Modificar Orden de Trabajo</h3>
 					</div>
 					<div class="modal-body">
-						<div style="display:flex;justify-content: space-around;">
+						<div style="display:flex;">
+							<!--justify-content: space-around;-->
 							<div>
 								<label>Fecha</label>
-								<input type="date" class="form-control col-5" ng-model="OT_date_modify" value="{{ otModify.OT_date }}">
+								<input type="date" class="form-control" ng-model="OT_date_modify" value="{{ otModify.OT_date }}">
 							</div>
 							<div>
 								<label for="Cliente">Cliente</label>
-								<input type="text" class="form-control col-5" ng-model="OT_client_modify" value="{{ otModify.client_name }}">
+								<input type="text" class="form-control raised-block" ng-model="OT_client_modify" value="{{ otModify.client_name }}" style="margin-left: 7px;">
 
 								<!--<select ng-model="OT_client" ng-value="OT_client" class="form-control col-5">
 									<option selected value=""></option>
@@ -175,12 +177,23 @@
 								</a>
 							</div>-->
 							<div>
-								<label>Imágen</label>
-								<input type="text" class="form-control col-5" value="Imagen">
+
+								<!--<form enctype="multipart/form-data" action="recursos/OT/subir.php" method="POST">
+									<label>Imágen</label>
+									<input type="file" id="file" name="file" ng-model="archivo" /> <button ng-click="addFile();">Subir</button>
+								</form>-->
+
+								<form>
+									<div class="form-group">
+										<label for="myFileField">Select a file: </label>
+										<input type="file" multiple ng-files="myFile" class="form-control" id="myFileField" />
+									</div>
+									<button ng-click="uploadFile()" class="btn btn-primary">Upload File</button>
+								</form>
 							</div>
 						</div>
 						<div>
-							<label for="DetalledeTrabajo">Detalle de Trabajo</label>
+							<label for="DetalledeTrabajo" style="padding-top: 10px;">Detalle de Trabajo</label>
 							<textarea ng-model="OT_detail_modify" style="resize: both;height: 60px;width: 97%;">Detalles de OT</textarea>
 						</div><br>
 						<div style="display: block; width:max-content;">
@@ -212,8 +225,8 @@
 										<td>{{ Ot_modify.Rel_height }}</td>
 										<td>{{ Ot_modify.Rel_price }}</td>
 										<td>{{ Ot_modify.Rel_height * Ot_modify.Rel_width * Ot_modify.Rel_quantity | number }}</td>
-										<td>{{ Ot_modify.Rel_quantity * Ot_modify.Rel_height * Ot_modify.Rel_width * Ot_modify.Rel_quantity | number }}</td>
-										<td><i class="fa fa-remove btn btn-danger" data-toggle="modal" data-target="#myModalDeleteProduct" ng-click="CargarIdRelacion(Ot_modify.id);">X</i></td>
+										<td>{{ Ot_modify.Total | number }}</td>
+										<td><i class="fa fa-remove btn btn-danger" ng-click="CargarIdRelacion(Ot_modify.id);" data-toggle="modal" data-target="#myModalDeleteProduct"></i></td>
 									</tr>
 									<tr style="vertical-align: top;">
 										<td><select class="form-control" style="width:175px;" ng-model="selectproduct" ng-change="CargarDatosProducto(selectproduct);">
@@ -228,7 +241,7 @@
 
 										<td><input class="form-control txtbox" type="text" ng-model="m2" placeholder="{{ Detail_quantity* Detail_height * Detail_width | number }}" disabled style="width:100px"></td>
 										<td><input class="form-control txtbox" type="text" placeholder="{{ Detail_quantity* Detail_height * Detail_width * product_price| number }}" ng-model="Detail_total" style="width:100px" disabled></td>
-										<td><i class="fa fa-refresh btn btn-success" ng-click="InsertRelacion(product.id);GetProducts();">-></i></td>
+										<td><i class="fa fa-arrow-right btn btn-success" ng-click="InsertRelacion(product.id);GetProducts();"></i></td>
 
 
 									</tr>
@@ -237,17 +250,18 @@
 									</tr>
 									<tr>
 										<td colspan=6></td>
-										<td>Total</td>
-										<td>{{ $total }}</td>
+										<td>Total $ {{ total }}</td>
+										<td></td>
 									</tr>
 									</tr>
 								</tbody>
 							</table>
+							<input type="button" value="Pasar al siguiente estado" ng-click="PasarSiguienteEstado(OT_id);">
 						</div>
 
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-success" data-dismiss="modal" ng-click="InsertClient(1);" style="font-size: 0.8em;">Agregar</button>
+						<button type="button" class="btn btn-success" data-dismiss="modal" ng-click="UpdateOT(OT_id,fichero_usuario);" style="font-size: 0.8em;">Agregar</button>
 						<button type="button" class="btn btn-info" data-dismiss="modal" style="font-size: 0.8em;">Cerrar</button>
 					</div>
 
@@ -272,14 +286,14 @@
 								<div class="card-body">
 									<h5 class="card-title title-card" ng-show="ModalModificar=='Agregar'">ELIMINAR PRODUCTOS</h5>
 									<p class="card-text">
-										Seguro que quiere eliminar el producto {{ product_description }}?
+										Seguro que quiere eliminar el producto {{Ot_modify.product_description}} {{ product_description }}?
 									</p>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="DeleteProduct(IdRelacion);" style="font-size: 0.8em;">Eliminar</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="DeleteRelac(IdRelacion);" style="font-size: 0.8em;">Eliminar</button>
 						<button type="button" class="btn btn-info" data-dismiss="modal" style="font-size: 0.8em;">Cerrar</button>
 					</div>
 				</div>

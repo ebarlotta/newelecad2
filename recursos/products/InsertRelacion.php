@@ -15,7 +15,7 @@ $datos = array();
 
 include_once("../stringconexion.inc");
 $resultado = $GLOBALS['pdo']->prepare($sql);
-//$resultado->execute();                                ////  COMENTADO PARA QUE NO TENGA EFECTO
+$resultado->execute();                                ////  COMENTADO PARA QUE NO TENGA EFECTO
 $datos = $resultado->fetchAll();
 
 $datos['Mensaje'] = "Datos Agregados!";

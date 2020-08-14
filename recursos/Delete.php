@@ -17,13 +17,16 @@ switch ($Module) {
     case "clients":
         $IdClient = $Id;
         $sql = "DELETE FROM clients WHERE Id=$IdClient";
+    case "relation":
+        $IdRelation = $Id;
+        $sql = "DELETE FROM rel_ot_clients WHERE Id=$IdRelation";
 }
 
 $datos = array();
 
 include_once("stringconexion.inc");
 $resultado = $GLOBALS['pdo']->prepare($sql);
-//$resultado->execute();                                ////  COMENTADO PARA QUE NO TENGA EFECTO
+$resultado->execute();                                ////  COMENTADO PARA QUE NO TENGA EFECTO
 $datos = $resultado->fetchAll();
 $datos['Mensaje'] = "Datos Eliminados!";
 

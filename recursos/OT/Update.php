@@ -23,7 +23,12 @@ $resultado->execute();
 
 $datos = $resultado->fetchAll();
 
-$datos['Ot_Id']=$datos[0]['id'];
+$ID = $datos[0][0];
+//$datos['Ot_Id']=$datos[0]['id'];
+//$datos[0]['Ot_Id']=$datos[0]['id'];
+
+$datos['Ot_Id']=$ID;
+$datos[0]['Ot_Id']=$ID;
 
 $datos['Mensaje'] = "Datos Agregados!";
 $datos['Mensaje2'] = $sql;

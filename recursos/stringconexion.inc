@@ -2,7 +2,7 @@
     //session_start();
     $_SESSION['user']='root';
     $_SESSION['password']='';
-    $pdo = new PDO('mysql:host=localhost;dbname=elecad', $_SESSION['user'], $_SESSION['password']);
+    $pdo = new PDO('mysql:host=localhost;dbname=newelecad', $_SESSION['user'], $_SESSION['password']);
 //    $pdo = new PDO('mysql:host=localhost;dbname=barl83_barlotta', $_SESSION['user'], $_SESSION['password']);
     $GLOBALS['pdo']->query("SET NAMES 'UTF8' ");                        // CORRE EN EL HOSTING
     //$link = mysql_connect ("localhost", $_SESSION['user'], $_SESSION['password']) or die ("No se puede conectar a la Base de Datos");
