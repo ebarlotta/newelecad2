@@ -39,12 +39,13 @@ misDatos.controller('principalController', function($scope, $http) {
         $http.get('recursos/DevolverDatos.php?Opcion=CargarOT&Param=' + id)
             .then(function(datos) {
                 //$scope.otModify = {};
-                $scope.OT_date_modify = Date(datos.data[0].OT_date);
+                $scope.OT_date_modify = datos.data[0].OT_date.substring(10, 8) + "/" + datos.data[0].OT_date.substring(7, 5) + "/" + datos.data[0].OT_date.substring(0, 4);
                 $scope.OT_client_modify = datos.data[0].client_name;
                 $scope.OT_detail_modify = datos.data[0].OT_detail;
                 $scope.OT_id = id;
                 $scope.DetailsOT(id);
                 $scope.CalcularTotal(id);
+                $scope.ID = id;
                 //$scope.otModify = datos.data;
             });
     }
@@ -75,7 +76,8 @@ misDatos.controller('principalController', function($scope, $http) {
     $scope.CargarDatosProducto = function(Prod) {
         $http.get('recursos/DevolverDatos.php?Opcion=GetProductId&Param=' + Prod)
             .then(function(datos) {
-                $scope.ID = datos.data[0].id;
+                //$scope.ID = datos.data[0].id;
+                $scope.IdProduct = datos.data[0].id;
                 $scope.product_description = datos.data[0].product_description;
                 $scope.product_price = datos.data[0].product_price;
                 $scope.unity = datos.data[0].product_unity;
@@ -98,8 +100,8 @@ misDatos.controller('principalController', function($scope, $http) {
     $scope.DeleteRelac = function(a) {
         $http.get('recursos/Delete.php?Id=' + a + '&module=relation')
             .then(function(datos) {
-                $scope.DetailsOT();
-                $scope.init();
+                $scope.DetailsOT($scope.ID);
+                //$scope.init();
             });
     }
 
