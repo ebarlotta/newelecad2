@@ -94,6 +94,7 @@ misDatos.controller('principalController', function($scope, $http) {
                 '&Rel_price=' + $scope.product_price)
             .then(function(datos) {
                 $scope.DetailsOT($scope.ID);
+                $scope.CalcularTotal($scope.ID);
             });
     }
 
@@ -101,7 +102,7 @@ misDatos.controller('principalController', function($scope, $http) {
         $http.get('recursos/Delete.php?Id=' + a + '&module=relation')
             .then(function(datos) {
                 $scope.DetailsOT($scope.ID);
-                //$scope.init();
+                $scope.CalcularTotal($scope.ID);
             });
     }
 

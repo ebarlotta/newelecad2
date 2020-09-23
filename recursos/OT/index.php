@@ -25,31 +25,28 @@
             </li>
             <div style="width:100%;color: white;">
                <div class="container">
-                  <div class="row" style="display: flex;">
+                  <div class="col" style="display: block;">
                      <a href="recursos/OT">
-                        <div class="card">
+                        <div class="card" style="width: 800px;">
+                           <h5 class="card-title">Ordenes cobradas</h5>
                            <div>
-                              <img src="assets/kate-trysh-Dnkr_lmdKi8-unsplash.jpg" alt="" style="width:100%; height:100px">
+                              <li ng-repeat="orden in ordenes" style="list-style:none">
+                                 {{ orden.OT_date  }} - {{ orden.client_name }} - {{ orden.OT_detail }} - {{ orden.Total }}
+                              </li>
+                              <h3> VENDIDO: {{ TotalGral }} </h3>
                            </div>
-                           <h5 class="card-title">Ordenes en curso</h5>
                            <div class="card-body"></div>
                         </div>
                      </a>
                      <a href="recursos/clients">
-                        <div class="card">
+                        <div class="card" style="width: 800px;">
+                           <h5 class="card-title">Ordenes en sin terminar</h5>
                            <div>
-                              <img src="assets/clients.jpg" alt="" style="width:100%; height:100px">
+                              <li ng-repeat="ordenNC in ordenesNC" style="list-style:none">
+                                 {{ ordenNC.OT_date  }} - {{ ordenNC.client_name }} - {{ ordenNC.OT_detail }} - {{ ordenNC.Total }}
+                              </li>
+                              <h3> TOTAL A COBRAR: {{ TotalGralNC }} </h3>
                            </div>
-                           <h5 class="card-title">Ordenes Pendientes</h5>
-                           <div class="card-body"></div>
-                        </div>
-                     </a>
-                     <a href="recursos/products">
-                        <div class="card">
-                           <div>
-                              <img src="assets/products.jpg" alt="" style="width:100%; height:100px">
-                           </div>
-                           <h5 class="card-title">Ordenes Terminadas</h5>
                            <div class="card-body"></div>
                         </div>
                      </a>

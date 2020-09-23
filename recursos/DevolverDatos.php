@@ -79,7 +79,7 @@ switch ($Opcion) {
         $datos = $resultado->fetchAll();
         break;
     case "DetailsOT":
-        $sql = "SELECT rel.id, rel.Rel_Id_OT, rel.Rel_Id_product, rel.Rel_quantity, rel.Rel_width, rel.Rel_height, rel.Rel_price, rel.Rel_state, products.product_description, (Rel_quantity*Rel_height*Rel_width*Rel_quantity*Rel_price) as Total FROM rel_ot_clients as rel, products WHERE rel.Rel_Id_product=products.id AND rel.Rel_Id_OT=$Parametros";
+        $sql = "SELECT rel.id, rel.Rel_Id_OT, rel.Rel_Id_product, rel.Rel_quantity, rel.Rel_width, rel.Rel_height, rel.Rel_price, rel.Rel_state, products.product_description, (Rel_quantity*Rel_height*Rel_width*Rel_price) as Total FROM rel_ot_clients as rel, products WHERE rel.Rel_Id_product=products.id AND rel.Rel_Id_OT=$Parametros";
         //"SELECT * FROM ots, clients WHERE ots.id=$Parametros and ots.OT_Id_Client=clients.id";
         //echo $sql;
         $resultado = $GLOBALS['pdo']->prepare($sql);
@@ -92,20 +92,54 @@ switch ($Opcion) {
         $datos = $resultado->fetchAll();
         break;
     case "CalcularTotal":
-        $sql = "SELECT rel.Rel_quantity, rel.Rel_width, rel.Rel_height, rel.Rel_price,  (Rel_quantity * Rel_height * Rel_width * Rel_quantity * Rel_price) as Total FROM rel_ot_clients as rel, products WHERE rel.Rel_Id_product=products.id AND rel.Rel_Id_OT=$Parametros";
+        $sql = "SELECT rel.Rel_quantity, rel.Rel_width, rel.Rel_height, rel.Rel_price,  (Rel_quantity * Rel_height * Rel_width * Rel_price) as Total FROM rel_ot_clients as rel, products WHERE rel.Rel_Id_product=products.id AND rel.Rel_Id_OT=$Parametros";
         //$sql = "SELECT rel.id, rel.Rel_Id_OT, rel.Rel_Id_product, rel.Rel_quantity, rel.Rel_width, rel.Rel_height, rel.Rel_price, rel.Rel_state, products.product_description FROM rel_ot_clients as rel, products WHERE rel.Rel_Id_product=products.id AND rel.Rel_Id_OT=$Parametros";
         //"SELECT * FROM ots, clients WHERE ots.id=$Parametros and ots.OT_Id_Client=clients.id";
         //echo $sql;
         $resultado = $GLOBALS['pdo']->prepare($sql);
         $resultado->execute();
         $Total = 0;
-        while($row=$resultado->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $resultado->fetch(PDO::FETCH_ASSOC)) {
             $Total = $Total + ($row['Total']);
         }
         //{"id":"6","0":"6","Rel_Id_OT":"1","1":"1","Rel_Id_product":"1","2":"1","Rel_quantity":"3.00","3":"3.00","Rel_width":"2.00","4":"2.00","Rel_height":"2.00","5":"2.00","Rel_price":"120.00","6":"120.00","Rel_state":"1","7":"1","product_description":"Lona","8":"Lona"}]}
         // echo $cont;
         //$datos = $resultado->fetchAll();
-        $datos['Total']= $Total;
+        $datos['Total'] = $Total;
+        break;
+    case "VentasMensuales":
+        $TotalGral = 0;
+        $c = 0;
+        $sql = "SELECT ots.id, ots.OT_date, clients.client_name, ots.ots_state, ots.OT_detail, (SELECT SUM(Rel_quantity*Rel_width*Rel_height *Rel_price) FROM rel_ot_clients WHERE Rel_Id_OT =ots.id) as Total FROM ots, clients, rel_ot_clients WHERE OT_Id_Client=clients.id and ots.ots_state<=7 GROUP BY ots.id";
+        //echo $sql;
+        $resultado = $GLOBALS['pdo']->prepare($sql);
+        $resultado->execute();
+        while ($row = $resultado->fetch()) {
+            $datos[$c]['client_name'] = $row['client_name'];
+            $datos[$c]['OT_detail'] = $row['OT_detail'];
+            $datos[$c]['OT_date'] = substr($row['OT_date'], 8, 2) . "-" . substr($row['OT_date'], 5, 2) . "-" . substr($row['OT_date'], 0, 4);
+            $datos[$c]['Total'] = $row['Total'];
+            $TotalGral = $TotalGral + ($row['Total']);
+            $datos[0]['TotalGral'] = $TotalGral;
+            $c++;
+        }
+        break;
+    case "VentasNoCobradas":
+        $TotalGral = 0;
+        $c = 0;
+        $sql = "SELECT ots.id, ots.OT_date, clients.client_name, ots.ots_state, ots.OT_detail, (SELECT SUM(Rel_quantity*Rel_width*Rel_height *Rel_price) FROM rel_ot_clients WHERE Rel_Id_OT =ots.id) as Total FROM ots, clients, rel_ot_clients WHERE OT_Id_Client=clients.id and ots.ots_state>7 GROUP BY ots.id";
+        //echo $sql;
+        $resultado = $GLOBALS['pdo']->prepare($sql);
+        $resultado->execute();
+        while ($row = $resultado->fetch()) {
+            $datos[$c]['client_name'] = $row['client_name'];
+            $datos[$c]['OT_detail'] = $row['OT_detail'];
+            $datos[$c]['OT_date'] = substr($row['OT_date'], 8, 2) . "-" . substr($row['OT_date'], 5, 2) . "-" . substr($row['OT_date'], 0, 4);
+            $datos[$c]['Total'] = $row['Total'];
+            $TotalGral = $TotalGral + ($row['Total']);
+            $datos[0]['TotalGral'] = $TotalGral;
+            $c++;
+        }
         break;
 }
 

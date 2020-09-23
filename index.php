@@ -64,10 +64,10 @@
 				</a>
 			</div>
 			<div style="width: 70%;">
-				<div ng-repeat="ot in ots" ng-model="OTrow" ng-click="CargaOT(ot.id);" style="display:block; margin: 1px 5px 5px 5px; padding:1px; width:100%;height:23%; background-color: red; background-image: linear-gradient( to right, red, #f06d06, rgb(255, 255, 0), green ); opacity: 0.9; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" class="gradient" data-toggle="modal" data-target="#modalOTmodify">
+				<div ng-repeat="ot in ots" ng-model="OTrow" ng-click="CargaOT(ot[0]);" style="display:block; margin: 1px 5px 5px 5px; padding:1px; width:100%;height:23%; background-color: red; background-image: linear-gradient( to right, red, #f06d06, rgb(255, 255, 0), green ); opacity: 0.9; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" class="gradient" data-toggle="modal" data-target="#modalOTmodify">
 					<div class="card-list">
 						<div class="row" style="align-items:center; justify-content: space-around;display:flex;">
-							<img src="../newelecad2/assets/sinfoto.png" class="card-img-top" alt="..." style="width:50px;height:50px;">
+                     <img src="../newelecad2/assets/sinfoto.png" class="card-img-top" alt="..." style="width:50px;height:50px;">
 							<div>
 								<img style="border-radius: 5%;" src="../newelecad2/assets/sinfoto.png" width="60px;" height="60px;">
 							</div>
@@ -136,12 +136,13 @@
 								<input type="text" class="form-control raised-block" ng-model="OT_client_modify" value="{{ otModify.client_name }}" style="margin-left: 7px;" disabled>
 							</div>
 							<div>
-								<form>
-									<div class="form-group" style="padding-left: 15px;">
+								<form action="upload_image.php" method="POST" enctype="multipart/form-data">
+								<input class="form-control" type="file" name="fileToUpload" id="fileToUpload">
+								<input class="form-control" type="submit">
+									<!--<div class="form-group" style="padding-left: 15px;">
 										<label for="myFileField">Select a file: </label><br>
 										<button ng-click="uploadFile()" class="btn btn-primary">Upload File</button>
-									</div>
-
+									</div>-->
 								</form>
 							</div>
 						</div>
