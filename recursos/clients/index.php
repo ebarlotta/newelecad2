@@ -77,7 +77,10 @@
                                         Correo Electrónico
                                         <input class="form-control txtbox" type="text" placeholder="Correo Electrónico" ng-model="client_email">
                                         Lista de Precio
-                                        <input class="form-control txtbox" type="text" placeholder="Lista de Precio" ng-model="client_id_list">
+                                        <select class="form-control" ng-model="client_id_list">
+                                            <option ng-repeat="list in lists" value="{{list.id}}">{{ list.list_name }}</option>
+                                        </select>
+                                        <!--<input class="form-control txtbox" type="text" placeholder="Lista de Precio" ng-model="client_id_list">-->
                                         Fotografía
                                         <input class="form-control txtbox" type="text" placeholder="Fotografía" ng-model="client_photo">
                                     </p>

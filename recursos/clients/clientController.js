@@ -1,25 +1,26 @@
 var misDatos = angular.module('datosApp', []);
 
-misDatos.controller('clientController', function ($scope, $http) {
+misDatos.controller('clientController', function($scope, $http) {
 
     // CONTROLADOR DE CLIENTES
     //------------------------
 
-    $scope.init = function () {
+    $scope.init = function() {
         $scope.getClients();
+        $scope.GetLists();
     }
 
-    $scope.getClients = function () {
+    $scope.getClients = function() {
         $http.get('../DevolverDatos.php?Opcion=Clients&Param=')
-            .then(function (datos) {
+            .then(function(datos) {
                 $scope.Clients = {};
                 $scope.Clients = datos.data;
             });
     }
 
-    $scope.CargarDatosCliente = function (Cli) {
+    $scope.CargarDatosCliente = function(Cli) {
         $http.get('../DevolverDatos.php?Opcion=GetClientId&Param=' + Cli)
-            .then(function (datos) {
+            .then(function(datos) {
                 $scope.ID = datos.data[0].id;
                 $scope.client_name = datos.data[0].client_name;
                 $scope.client_address = datos.data[0].client_address;
@@ -30,28 +31,35 @@ misDatos.controller('clientController', function ($scope, $http) {
             });
     }
 
-    $scope.ModalModificarOperacion = function (Opcion) {
+    $scope.ModalModificarOperacion = function(Opcion) {
         $scope.ModalModificar = Opcion;
     }
 
-    $scope.InsertClient = function (operation) {
-        $http.get('InsertClient.php' + '?client_name=' + $scope.client_name
-            +'&client_address=' + $scope.client_address
-            +'&client_telephone=' + $scope.client_telephone
-            +'&client_email=' + $scope.client_email
-            +'&client_id_list=' + $scope.client_id_list
-            +'&client_photo=' + $scope.client_photo
-            +'&client_id=' + $scope.ID
-            +'&operation=' + operation)
-            .then(function (datos) {
+    $scope.InsertClient = function(operation) {
+        $http.get('InsertClient.php' + '?client_name=' + $scope.client_name +
+                '&client_address=' + $scope.client_address +
+                '&client_telephone=' + $scope.client_telephone +
+                '&client_email=' + $scope.client_email +
+                '&client_id_list=' + $scope.client_id_list +
+                '&client_photo=' + $scope.client_photo +
+                '&client_id=' + $scope.ID +
+                '&operation=' + operation)
+            .then(function(datos) {
                 $scope.init();
             });
     }
 
-    $scope.DeleteClient = function (a) {
+    $scope.DeleteClient = function(a) {
         $http.get('../Delete.php?Id=' + a + '&module=clients')
-            .then(function (datos) {
+            .then(function(datos) {
                 $scope.init();
+            });
+    }
+
+    $scope.GetLists = function() {
+        $http.get('../DevolverDatos.php?Opcion=Lists&Param=')
+            .then(function(datos) {
+                $scope.lists = datos.data;
             });
     }
 });

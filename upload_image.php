@@ -1,7 +1,20 @@
 
 <?php
 $target_dir = "assets/images/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+
+$fileName = $_FILES['fileToUpload']['name'];
+
+$OT=$_POST['OT'];
+//echo $OT;
+$fileNameCmps = explode(".", $fileName);
+$fileExtension = strtolower(end($fileNameCmps));
+$newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+
+$target_file = $target_dir . basename($newFileName);
+
+//$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+//$OT_id=$_FILES["fileToUpload"]["OT"];
+
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 // Check if image file is a actual image or fake image
@@ -27,15 +40,25 @@ if ($_FILES["fileToUpload"]["size"] > 500000) {
 }
 // Allow certain file formats
 if (
-    $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-    && $imageFileType != "gif"
+    $imageFileType != "JPEG" && $imageFileType != "PNG" && $imageFileType != "JPG" && $imageFileType != "PNG" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif"
 ) {
     echo "Disculpa, sólo JPG, JPEG, PNG & GIF están permitidos.";
+    //echo $target_file;
     $uploadOk = 0;
 }
 if ($uploadOk) {
     if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file)) {
-        echo "El fichero es válido y se subió con éxito.\n";
+        $_SESSION['user']='root';
+        $_SESSION['password']='';
+        $pdo = new PDO('mysql:host=localhost;dbname=newelecad', $_SESSION['user'], $_SESSION['password']);
+        //include_once("recursos/stringconexion.inc");
+        $sql = "UPDATE ots SET OT_file='" . $newFileName . "' WHERE id=$OT";
+        //echo $sql;
+        $resultado = $GLOBALS['pdo']->prepare($sql);
+        $resultado->execute();
+        //echo "El fichero es válido y se subió con éxito.\n";
+        //header("location:javascript://history.go(-1)");
+
     } else {
         echo "¡Posible ataque de subida de ficheros!\n";
     }

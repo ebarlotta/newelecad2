@@ -141,6 +141,15 @@ switch ($Opcion) {
             $c++;
         }
         break;
+    case "CargarFoto":
+        $sql = "SELECT * FROM ots WHERE Id=" . $Parametros;
+        $resultado = $GLOBALS['pdo']->prepare($sql);
+        $resultado->execute();
+        //echo $sql;
+        $datos['NombreArchivo']="";
+        while ($row = $resultado->fetch()) {
+            $datos['NombreArchivo'] = $row['OT_file'];
+        }
 }
 
 $datos = json_encode($datos);

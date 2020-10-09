@@ -25,8 +25,8 @@
             </li>
             <div style="width:100%;color: white;">
                <div class="container">
-                  <div class="col" style="display: block;">
-                     <a href="recursos/OT">
+                  <div class="col" style="display: block; color:darkslategrey">
+                     <!--<a href="recursos/OT">-->
                         <div class="card" style="width: 800px;">
                            <h5 class="card-title">Ordenes cobradas</h5>
                            <div>
@@ -37,8 +37,8 @@
                            </div>
                            <div class="card-body"></div>
                         </div>
-                     </a>
-                     <a href="recursos/clients">
+                     <!--</a>
+                     <a href="recursos/clients">-->
                         <div class="card" style="width: 800px;">
                            <h5 class="card-title">Ordenes en sin terminar</h5>
                            <div>
@@ -49,7 +49,7 @@
                            </div>
                            <div class="card-body"></div>
                         </div>
-                     </a>
+                     <!--</a>-->
                   </div>
                </div>
             </div>

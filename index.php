@@ -67,9 +67,10 @@
 				<div ng-repeat="ot in ots" ng-model="OTrow" ng-click="CargaOT(ot[0]);" style="display:block; margin: 1px 5px 5px 5px; padding:1px; width:100%;height:23%; background-color: red; background-image: linear-gradient( to right, red, #f06d06, rgb(255, 255, 0), green ); opacity: 0.9; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" class="gradient" data-toggle="modal" data-target="#modalOTmodify">
 					<div class="card-list">
 						<div class="row" style="align-items:center; justify-content: space-around;display:flex;">
-                     <img src="../newelecad2/assets/sinfoto.png" class="card-img-top" alt="..." style="width:50px;height:50px;">
+							<img src="../newelecad2/assets/sinfoto.png" class="card-img-top" alt="..." style="width:50px;height:50px;">
 							<div>
-								<img style="border-radius: 5%;" src="../newelecad2/assets/sinfoto.png" width="60px;" height="60px;">
+								<img ng-show="ot.OT_file" style="border-radius: 5%;" src="assets/images/{{ot.OT_file}}" width="60px;" height="60px;">
+								<img ng-hide="ot.OT_file" style="border-radius: 5%;" src="assets/sinfoto.png" width="60px;" height="60px;">
 							</div>
 							<div style="font-size:18px;">{{ ot.client_name }} - {{ ot.client_telephone }}</div>
 						</div>
@@ -126,31 +127,38 @@
 						<h3 class="modal-title">Modificar Orden de Trabajo</h3>
 					</div>
 					<div class="modal-body">
-						<div style="display:flex;">
-							<div>
+						<div style="display:flex;" class="col-12">
+							<div class="col-2">
 								<label>Fecha</label>
 								<input type="text" class="form-control" ng-model="OT_date_modify" value="{{ otModify.OT_date }}" disabled style="width: 100px;">
 							</div>
-							<div>
+							<div class="col-5">
 								<label for="Cliente">Cliente</label>
 								<input type="text" class="form-control raised-block" ng-model="OT_client_modify" value="{{ otModify.client_name }}" style="margin-left: 7px;" disabled>
 							</div>
-							<div>
+							<div ng-hide="OT_file" class="col-5">
 								<form action="upload_image.php" method="POST" enctype="multipart/form-data">
-								<input class="form-control" type="file" name="fileToUpload" id="fileToUpload">
-								<input class="form-control" type="submit">
-									<!--<div class="form-group" style="padding-left: 15px;">
+										<input type="hidden" id="OT" name="OT" value="{{OT_id}}">
+									<div class="row col-12" style="align-content: end; height: 100%;">
+										<input class="form-control col-8" type="file" name="fileToUpload" id="fileToUpload" ng-model="fileToUpload">
+										<input class="form-control col-4" type="submit" value="Cargar" ng-click="UpdateFotoLoc(OT_id)">
+										{{fileToUpload}}
+										<!--<div class="form-group" style="padding-left: 15px;">
 										<label for="myFileField">Select a file: </label><br>
 										<button ng-click="uploadFile()" class="btn btn-primary">Upload File</button>
 									</div>-->
+									</div>
 								</form>
 							</div>
+							<div ng-show="OT_file" class="col-5">
+								<img src="assets/images/{{OT_file}}" width="100px" alt="">
+							</div>
 						</div>
-						<div>
+						<div class="col-12">
 							<label for="DetalledeTrabajo" style="padding-top: 10px;">Detalle de Trabajo</label>
 							<textarea ng-model="OT_detail_modify" style="resize: both;height: 60px;width: 97%;">Detalles de OT</textarea>
 						</div><br>
-						<div style="display: block; width:max-content;">
+						<div class="col-12" style="display: block; width:max-content;">
 							<label>Elementos a utilizar</label>
 							<table class="form-control table-bordered" style="display:contents; border: 1px solid black;width:97%; margin:10px;padding:5px;">
 								<tbody>
@@ -201,7 +209,18 @@
 									</tr>
 								</tbody>
 							</table>
-							<input type="button" value="Pasar al siguiente estado" ng-click="PasarSiguienteEstado(OT_id);" style="margin-top: 10px;" data-toggle="modal" data-target="#modalCambioEstado">
+							<select ng-model="PasarEstado">
+								<option value="1">Diseños</option>
+								<option value="2">Impresiones Laser</option>
+								<option value="3">Enviados a Imprimir </option>
+								<option value="4">Imprimiendo</option>
+								<option value="5">Trabajo Impreso</option>
+								<option value="6">Terminaciones</option>
+								<option value="7">Listo para entregar</option>
+								<option value="8">Trabajos Retirados</option>
+								<option value="9">Trabajos a enviar</option>
+							</select>
+							<input type="button" value="Actualizar estado" ng-click="PasarSiguienteEstado(OT_id,PasarEstado);" style="margin-top: 10px;" data-toggle="modal" data-target="#modalCambioEstado">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -318,7 +337,7 @@
 				<div class="card">
 					<div>
 						<img src="assets/pricelist.jpg" alt="" style="width:100%; height:100px">
-					</div>			
+					</div>
 					<h5 class="card-title">Listas de Precio</h5>
 					<div class="card-body"></div>
 				</div>

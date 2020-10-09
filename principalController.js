@@ -46,6 +46,7 @@ misDatos.controller('principalController', function($scope, $http) {
                 $scope.DetailsOT(id);
                 $scope.CalcularTotal(id);
                 $scope.ID = id;
+                $scope.OT_file = datos.data[0].OT_file;
                 //$scope.otModify = datos.data;
             });
     }
@@ -118,10 +119,11 @@ misDatos.controller('principalController', function($scope, $http) {
             });
     }
 
-    $scope.PasarSiguienteEstado = function(a) {
-        $http.get('recursos/OT/PasarDeEstado.php?Id=' + a)
+    $scope.PasarSiguienteEstado = function(a, Estado) {
+        $http.get('recursos/OT/PasarDeEstado.php?Id=' + a + '&Estado=' + Estado)
             .then(function(datos) {
                 $scope.CargaOT(a);
+                $scope.init();
             });
     }
 
@@ -146,7 +148,23 @@ misDatos.controller('principalController', function($scope, $http) {
         }
     }
 
-    /*
+    $scope.UpdateFotoLoc = function(OT_id) {
+        $http.get('recursos/OT/UpdateFoto.php' + '?OT_id=' + OT_id + '&nombre=' + $scope.fileToUpload)
+            .then(function(datos) {
+
+            })
+    }
+
+    $scope.CargarFoto = function(OT_id) {
+            $http.get('recursos/DevolverDatos.php' + '?Opcion=CargarFoto&Param=' + OT_id)
+                .then(function(datos) {
+                    //longitud = datos.data['NombrePaciente'].indexOf(" ");
+                    $scope.imgperfil = "assets/images/" + datos.data['NombreArchivo'] + ".jpg";
+                    $scope.imgstate = $scope.imgperfil;
+                    console.log($scope.imgperfil);
+                })
+        }
+        /*
     $scope.uploadFile = function() {
         var file = $scope.myFile;
         var uploadUrl = "../server/service.php", //Url of webservice/api/server
